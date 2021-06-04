@@ -15,8 +15,6 @@ export class GoogleSpreadSheets {
   }
 
   public putValueRange = (tabTitle: string, values: Object[]): void => {
-    console.log(values)
-
     const numRows = values.length;
     const numColumns = Object.keys(values.find(() => true) as Object).length
     this.spreadsheet.getSheetByName(tabTitle)?.getRange(1, 1, numRows, numColumns).setValues(this.toArray(values))
