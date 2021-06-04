@@ -1,9 +1,7 @@
 {
-  "name": "analytics-gas",
+  "name": "assessment-list-gas",
   "version": "1.0.0",
   "main": "index.js",
-  "repository": "git@github.com:ryunosuke-akagawa-sms/analytics-gas.git",
-  "author": "ryunosuke-akagawa-sms <ryunosuke-akagawa@bm-sms.co.jp>",
   "license": "MIT",
   "scripts": {
     "build": "webpack",
@@ -12,10 +10,9 @@
   "devDependencies": {
     "@google/clasp": "^2.3.0",
     "@types/axios": "^0.14.0",
-    "@types/dotenv-webpack": "^7.0.0",
     "@types/google-apps-script": "^1.0.29",
-    "dotenv-webpack": "^7.0.2",
     "gas-webpack-plugin": "^2.0.0",
+    "googleapis": "^75.0.0",
     "prettier": "^2.2.1",
     "ts-loader": "^8.1.0",
     "webpack": "^5.28.0",
