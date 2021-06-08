@@ -1,6 +1,7 @@
-import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, SYSTEM_SHEET_ID, SYSTEM_SHEET_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME } from "./infrastractures/environments";
+import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME } from "./infrastractures/environments";
+import { fetchJsonS3Service } from "./services/fetchJsonS3Service";
 import { GoogleSpreadSheets } from "./infrastractures/GoogleSpreadSheets";
-import { mergeAssessmentsService } from "./services/mergeAssessmentsService copy";
+import { mergeAssessmentsService } from "./services/mergeAssessmentsService";
 import { sheetDataToAssessmentsService } from "./services/sheetDataToAssessmentsService";
 
 declare var global: any;
@@ -11,11 +12,7 @@ global.main = async () => {
     true
   ).execute();
 
-  const systemAssessments = new sheetDataToAssessmentsService(
-    new GoogleSpreadSheets(SYSTEM_SHEET_ID).fetchValueRange(SYSTEM_SHEET_NAME),
-    true
-  ).execute();
-  
+  const systemAssessments = new fetchJsonS3Service().execute('mapcamera_scraping_result.json')
   const result = new mergeAssessmentsService(systemAssessments, manualAssessments).execute();
   result.sort((a, b) => {
     return a.jan > b.jan ? 1 : -1 

@@ -13,4 +13,5 @@ export interface Assessment {
   isDeleted: boolean; //削除フラグ
   isOneprice: boolean; //ワンプライスかどうか
   isManual: boolean; // マニュアルデータかどうか
+  url: string;
 }
