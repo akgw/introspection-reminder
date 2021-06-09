@@ -11,7 +11,7 @@ export class sheetDataToAssessmentsService {
   public execute(): Assessment[] {
     const assessments:Assessment[] = []
     this.sheetData.map(row => {
-      const [jan, name, images, manufacturer, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, isDeleted, isOneprice, isManual, url] = row;
+      const [jan, name, images, manufacturer, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, isDeleted, isOneprice, url] = row;
 
       const assessment: Assessment = {
         jan,
@@ -27,7 +27,7 @@ export class sheetDataToAssessmentsService {
         condition6Appraisal,
         isDeleted,
         isOneprice,
-        isManual,
+        isManual: true,
         url
       }
       assessments.push(assessment)

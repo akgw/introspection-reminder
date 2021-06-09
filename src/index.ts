@@ -1,23 +1,33 @@
-import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME } from "./infrastractures/environments";
+import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, MANUAL_SHEET_MASTER_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME } from "./infrastractures/environments";
 import { fetchJsonS3Service } from "./services/fetchJsonS3Service";
 import { GoogleSpreadSheets } from "./infrastractures/GoogleSpreadSheets";
 import { mergeAssessmentsService } from "./services/mergeAssessmentsService";
 import { sheetDataToAssessmentsService } from "./services/sheetDataToAssessmentsService";
+import { considerAssessmentService } from "./services/considerAssessmentService";
 
 declare var global: any;
 
-global.main = async () => {
+global.main = () => {
   const manualAssessments = new sheetDataToAssessmentsService(
     new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_NAME),
     true
   ).execute();
-
+ 
   const systemAssessments = new fetchJsonS3Service().execute('mapcamera_scraping_result.json')
-  const result = new mergeAssessmentsService(systemAssessments, manualAssessments).execute();
-  result.sort((a, b) => {
+
+  const mergedResult = new mergeAssessmentsService(systemAssessments, manualAssessments).execute();
+  mergedResult.sort((a, b) => {
     return a.jan > b.jan ? 1 : -1 
   })
+  console.log(`[INFO] manualAssessments:${manualAssessments.length}`);
+  console.log(`[INFO] systemAssessments:${systemAssessments.length}`);
+  console.log(`[INFO] mergedResult:${mergedResult.length}`);
 
+  const result = new considerAssessmentService(
+    new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
+    mergedResult
+  ).execute();
+  
   const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
   const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
   viewsSheets.clearContentsSheet(VIEWS_SHEET_NAME);

@@ -10,7 +10,7 @@ export class fetchJsonS3Service<T> {
     );
   }
 
-  public execute = (filepath: string) => {
+  public execute = (filepath: string): any[] => {
     const str = this.s3.getObject('buysell-scraping-result', filepath);
     
     return JSON.parse(str);
