@@ -30,4 +30,5 @@ GASのプロパティサービスで下記を設定してください。
 | MANUAL_SHEET_MASTER_NAME | MAX買取価格の係数マスタのシート名 |
 | VIEWS_SHEET_ID | 閲覧用(出力先)のシートID |
 | VIEWS_SHEET_NAME | 閲覧用(出力先)のシート名 |
-
+| SLACK_WEBHOOK_URL | Slackへの通知用 |
+| SLACK_CHANNEL | Slackの通知先 |
