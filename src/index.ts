@@ -1,29 +1,29 @@
 import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, MANUAL_SHEET_MASTER_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME } from "./infrastractures/environments";
 import { fetchJsonS3Service } from "./services/fetchJsonS3Service";
-import { GoogleSpreadSheets } from "./infrastractures/GoogleSpreadSheets";
-import { mergeAssessmentsService } from "./services/mergeAssessmentsService";
-import { sheetDataToAssessmentsService } from "./services/sheetDataToAssessmentsService";
-import { considerAssessmentService } from "./services/considerAssessmentService";
+import { GoogleSpreadSheets } from "./infrastractures/googleSpreadSheets";
+import { mergeappraisalsService } from "./services/mergeAppraisalsService";
+import { sheetDataToappraisalsService } from "./services/sheetDataToAppraisalsService";
+import { considerappraisalservice } from "./services/considerappraisalservice";
 
 declare var global: any;
 
 global.main = () => {
-  const manualAssessments = new sheetDataToAssessmentsService(
+  const manualAppraisals = new sheetDataToappraisalsService(
     new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_NAME),
     true
   ).execute();
  
-  const systemAssessments = new fetchJsonS3Service().execute('mapcamera_scraping_result.json')
+  const systemAppraisals = new fetchJsonS3Service().execute('mapcamera_scraping_result.json')
 
-  const mergedResult = new mergeAssessmentsService(systemAssessments, manualAssessments).execute();
+  const mergedResult = new mergeappraisalsService(systemAppraisals, manualAppraisals).execute();
   mergedResult.sort((a, b) => {
     return a.jan > b.jan ? 1 : -1 
   })
-  console.log(`[INFO] manualAssessments:${manualAssessments.length}`);
-  console.log(`[INFO] systemAssessments:${systemAssessments.length}`);
+  console.log(`[INFO] manualAppraisals:${manualAppraisals.length}`);
+  console.log(`[INFO] systemAppraisals:${systemAppraisals.length}`);
   console.log(`[INFO] mergedResult:${mergedResult.length}`);
 
-  const result = new considerAssessmentService(
+  const result = new considerappraisalservice(
     new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
     mergedResult
   ).execute();

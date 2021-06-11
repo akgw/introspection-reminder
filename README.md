@@ -20,9 +20,14 @@ GaxiosError: User has not enabled the Apps Script API. Enable it by visiting htt
 
 ## 実行時
 GASのプロパティサービスで下記を設定してください。
-```
-MANUAL_SHEET_ID: 手動シートのシートID
-MANUAL_SHEET_NAME: 手動シートのシート名
-SYSTEM_SHEET_ID: システムシートのシートID
-SYSTEM_SHEET_NAME: システムシートのシート名
-```
+
+| key | value description |
+| -- | -- |
+| AWS_ACCESS_KEY_ID | S3へのwrite権限のあるアクセスキー|
+| AWS_SECRET_ACCESS_KEY | S3へのwrite権限のあるシークレットキー|
+| MANUAL_SHEET_ID | 手動更新用スプレッドシートのシートID |
+| MANUAL_SHEET_NAME | 手動更新用スプレッドシートのシート名 |
+| MANUAL_SHEET_MASTER_NAME | MAX買取価格の係数マスタのシート名 |
+| VIEWS_SHEET_ID | 閲覧用(出力先)のシートID |
+| VIEWS_SHEET_NAME | 閲覧用(出力先)のシート名 |
+

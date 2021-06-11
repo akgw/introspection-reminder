@@ -1,4 +1,4 @@
-export interface Assessment {
+export interface Appraisal {
   jan: string; // janコード
   name: string; // 商品名
   images: string[]; // 画像

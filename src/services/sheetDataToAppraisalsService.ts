@@ -1,6 +1,6 @@
-import { Assessment } from "../@types/assessments";
+import { Appraisal } from "../@types/appraisal";
 
-export class sheetDataToAssessmentsService {
+export class sheetDataToappraisalsService {
   private sheetData: any[];
   private deleteHeader: boolean;
   constructor(sheetData: any[], deleteHeader: boolean) {
@@ -8,12 +8,12 @@ export class sheetDataToAssessmentsService {
     this.deleteHeader = deleteHeader
   }
 
-  public execute(): Assessment[] {
-    const assessments:Assessment[] = []
+  public execute(): Appraisal[] {
+    const appraisals:Appraisal[] = []
     this.sheetData.map(row => {
       const [jan, name, images, manufacturer, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, isDeleted, isOneprice, url] = row;
 
-      const assessment: Assessment = {
+      const Appraisal: Appraisal = {
         jan,
         name,
         images,
@@ -30,12 +30,12 @@ export class sheetDataToAssessmentsService {
         isManual: true,
         url
       }
-      assessments.push(assessment)
+      appraisals.push(Appraisal)
     })
     if (this.deleteHeader) {
-      assessments.shift();
+      appraisals.shift();
     }
 
-    return assessments
+    return appraisals
   }
 }

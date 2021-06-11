@@ -15,6 +15,6 @@
     "esModuleInterop": true,
     "moduleResolution": "node"
   },
-  "include": ["./src/**/*", "@types/assessments.d.ts"],
+  "include": ["./src/**/*", "@types/appraisal.d.ts"],
   "typeRoots": ["./src/@types", "node_modules/@types"]
 }
