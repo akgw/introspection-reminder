@@ -31,7 +31,10 @@ global.main = () => {
     const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
     const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
     viewsSheets.clearContentsSheet(VIEWS_SHEET_NAME);
-    viewsSheets.putValueRange(VIEWS_SHEET_NAME, [header].concat(result))
+    // データ数がヘッダと一致するもののみ保存
+    viewsSheets.putValueRange(VIEWS_SHEET_NAME, [header].concat(result.filter(row => {
+      return Object.keys(row).length == Object.keys(header).length
+    })))
     
     slack.sendInfo('Camera Crawl Notification :successed:',
       `Output Google App Script Finished.\nmanual: ${manualAppraisals.length}, system: ${systemAppraisals.length}, merged: ${mergedResult.length}`
