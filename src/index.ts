@@ -1,9 +1,9 @@
 import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, MANUAL_SHEET_MASTER_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME, SLACK_WEBHOOK_URL, SLACK_CHANNEL } from "./infrastractures/environments";
 import { fetchJsonS3Service } from "./services/fetchJsonS3Service";
 import { GoogleSpreadSheets } from "./infrastractures/googleSpreadSheets";
-import { mergeappraisalsService } from "./services/mergeAppraisalsService";
-import { sheetDataToappraisalsService } from "./services/sheetDataToAppraisalsService";
-import { considerappraisalservice } from "./services/considerappraisalservice";
+import { mergeAppraisalsService } from "./services/mergeAppraisalsService";
+import { sheetDataToAppraisalsService } from "./services/sheetDataToAppraisalsService";
+import { considerAppraisalService } from "./services/considerAppraisalService";
 import { sendMessageSlackService } from "./services/sendMessageSlackService";
 
 declare var global: any;
@@ -12,18 +12,18 @@ global.main = () => {
   slack.sendInfo('Camera Crawl Notification :start:', 'Output Google App Script Start.')
 
   try {
-    const manualAppraisals = new sheetDataToappraisalsService(
+    const manualAppraisals = new sheetDataToAppraisalsService(
       new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_NAME),
       true
     ).execute();
    
     const systemAppraisals = new fetchJsonS3Service().execute('mapcamera_scraping_result.json')
-    const mergedResult = new mergeappraisalsService(systemAppraisals, manualAppraisals).execute();
+    const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals).execute();
     mergedResult.sort((a, b) => {
       return a.jan > b.jan ? 1 : -1 
     })
   
-    const result = new considerappraisalservice(
+    const result = new considerAppraisalService(
       new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
       mergedResult
     ).execute();

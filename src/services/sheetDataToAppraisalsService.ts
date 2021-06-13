@@ -1,6 +1,6 @@
 import { Appraisal } from "../@types/appraisal";
 
-export class sheetDataToappraisalsService {
+export class sheetDataToAppraisalsService {
   private sheetData: any[];
   private deleteHeader: boolean;
   constructor(sheetData: any[], deleteHeader: boolean) {

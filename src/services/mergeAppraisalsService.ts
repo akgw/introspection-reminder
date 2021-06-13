@@ -1,6 +1,6 @@
 import { Appraisal } from "../@types/appraisal";
 
-export class mergeappraisalsService {
+export class mergeAppraisalsService {
   private systemAppraisals: Appraisal[];
   private manualAppraisals: Appraisal[];
   constructor(systemAppraisals: Appraisal[], manualAppraisals: Appraisal[]) {

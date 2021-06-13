@@ -5,7 +5,7 @@ interface Reference {
   rate: string;
 }
 
-export class considerappraisalservice {
+export class considerAppraisalService {
   private sheetData: any[];
   private appraisals: Appraisal[];
   constructor(sheetData: any[], appraisals: Appraisal[]) {
