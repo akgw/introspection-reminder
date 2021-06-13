@@ -3,10 +3,17 @@
   "exceptionLogging": "STACKDRIVER",
   "runtimeVersion": "V8",
   "dependencies": {
-    "libraries": [{
-      "userSymbol": "S3",
-      "libraryId": "1Qx-smYQLJ2B6ae7Pncbf_8QdFaNm0f-br4pbDg0DXsJ9mZJPdFcIEkw_",
-      "version": "3"
-    }]
+    "libraries": [
+      {
+        "userSymbol": "S3",
+        "libraryId": "1Qx-smYQLJ2B6ae7Pncbf_8QdFaNm0f-br4pbDg0DXsJ9mZJPdFcIEkw_",
+        "version": "3"
+      },
+      {
+        "userSymbol": "S3v4",
+        "libraryId": "MB4837UymyETXyn8cv3fNXZc9ncYTrHL9",
+        "version": "4"
+      }
+    ]
   }
 }
