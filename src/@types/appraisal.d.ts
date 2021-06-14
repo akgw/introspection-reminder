@@ -10,7 +10,7 @@ export interface Appraisal {
   condition3Appraisal: string; // 美品査定額
   condition5Appraisal: string; // 良品査定額
   condition6Appraisal: string; // 並品査定額
-  isDeleted: boolean; //削除フラグ
+  updatedAt: string; // 更新日
   isOneprice: boolean; //ワンプライスかどうか
   isManual: boolean; // マニュアルデータかどうか
   url: string;

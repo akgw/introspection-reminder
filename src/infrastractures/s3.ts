@@ -21,7 +21,7 @@ export class s3 {
   }
 
   public fetch = (filepath: string): [] => {
-    return JSON.parse(this.s3.getObject(this.bucketName, filepath))
+    return JSON.parse(this.s3.getObject(this.bucketName, filepath)) || []
   }
 
   public put = (filepath: string, data: any[]): void => {

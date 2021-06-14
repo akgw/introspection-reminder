@@ -1,21 +1,27 @@
+import dayjs from "dayjs";
 import { Appraisal } from "../@types/appraisal";
 
 export class mergeAppraisalsService {
   private systemAppraisals: Appraisal[];
   private manualAppraisals: Appraisal[];
-  constructor(systemAppraisals: Appraisal[], manualAppraisals: Appraisal[]) {
+  private latestAppraisals: Appraisal[];
+  constructor(systemAppraisals: Appraisal[], manualAppraisals: Appraisal[], latestAppraisals: Appraisal[]) {
     this.systemAppraisals = systemAppraisals;
     this.manualAppraisals = manualAppraisals
+    this.latestAppraisals = latestAppraisals;
   }
 
   /**
    * システムシートの査定額一覧を基準に、手動シートでJANコード同一のものは項目をブランク以外上書きする
-   * TODO 既存の参照用データも取得して、削除フラグを加える
    */
   public execute(): Appraisal[] {
-    const appraisals = this.overWriteAppraisal(this.systemAppraisals, this.manualAppraisals);
+    const appraisals = this.overWriteAppraisal(this.systemAppraisals, this.manualAppraisals)
+    const currentApprisals = this.addDiffAppraisal(appraisals, this.manualAppraisals).map(appraisal => {
+      appraisal.updatedAt = dayjs().format('YYYY-MM-DD')
+      return appraisal;
+    });
 
-    return this.addDiffAppraisal(appraisals, this.manualAppraisals);
+    return this.overWriteAppraisal(this.latestAppraisals, currentApprisals)
   }
 
   /**

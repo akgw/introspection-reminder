@@ -18,8 +18,10 @@ GaxiosError: User has not enabled the Apps Script API. Enable it by visiting htt
 ```
 手順の通りURLへ遷移してApp Script APIを有効化してください。
 
-## 実行時
+## 環境設定
+### プロパティサービスの設定
 GASのプロパティサービスで下記を設定してください。
+2021/06時点で、プロパティサービスは旧エディタからでしか変更できないため注意
 
 | key | value description |
 | -- | -- |
@@ -32,3 +34,7 @@ GASのプロパティサービスで下記を設定してください。
 | VIEWS_SHEET_NAME | 閲覧用(出力先)のシート名 |
 | SLACK_WEBHOOK_URL | Slackへの通知用 |
 | SLACK_CHANNEL | Slackの通知先 |
+
+### 使用ライブラリの設定
+dist/appsscript.jsonに使用ライブラリの記載があり、deploy時に自動的に選択される。
+S3操作のライブラリはv3がget用、v4がput用となっており使用には注意が必要(ライブラリ側で明記されていないが、目的外の使用でエラーが発生する)

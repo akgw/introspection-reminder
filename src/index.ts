@@ -6,6 +6,7 @@ import { sheetDataToAppraisalsService } from "./services/sheetDataToAppraisalsSe
 import { considerAppraisalService } from "./services/considerAppraisalService";
 import { sendMessageSlackService } from "./services/sendMessageSlackService";
 import { saveJsonS3Service } from "./services/saveJsonS3Service";
+import { loadLatestApprisalsService } from "./services/loadLatestApprisalsService";
 
 declare var global: any;
 global.main = () => {
@@ -18,11 +19,9 @@ global.main = () => {
       true
     ).execute();
    
-    const systemAppraisals = new loadJsonS3Service().execute()
-    const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals).execute();
-    mergedResult.sort((a, b) => {
-      return a.jan > b.jan ? 1 : -1 
-    })
+    const systemAppraisals = new loadJsonS3Service().execute('mapcamera_scraping_result.json')
+    const latestAppraisals = new loadLatestApprisalsService().execute()
+    const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals, latestAppraisals).execute();
   
     const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
     const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
@@ -33,7 +32,9 @@ global.main = () => {
       mergedResult
     ).execute().filter(row => {
       return Object.keys(row).length == Object.keys(header).length
-    });
+    }).sort((a, b) => {
+      return a.jan > b.jan ? 1 : -1 
+    })
 
     viewsSheets.clearContentsSheet(VIEWS_SHEET_NAME);
     viewsSheets.putValueRange(VIEWS_SHEET_NAME, [header].concat(considerdResult))

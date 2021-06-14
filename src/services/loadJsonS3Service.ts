@@ -5,7 +5,7 @@ export class loadJsonS3Service {
     this.s3 = new s3('buysell-scraping-result')
   }
 
-  public execute = (): [] => {
-    return this.s3.fetch('mapcamera_scraping_result.json');
+  public execute = (filepath: string): [] => {
+    return this.s3.fetch(filepath);
  }
 }
