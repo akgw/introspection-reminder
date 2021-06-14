@@ -24,25 +24,24 @@ global.main = () => {
       return a.jan > b.jan ? 1 : -1 
     })
   
+    const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
+    const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
+
     // 係数など計算処理
     const considerdResult = new considerAppraisalService(
       new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
       mergedResult
-    ).execute();
-    
-    const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
-    const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
-    const output = [header].concat(considerdResult.filter(row => {
+    ).execute().filter(row => {
       return Object.keys(row).length == Object.keys(header).length
-    }))
+    });
+
     viewsSheets.clearContentsSheet(VIEWS_SHEET_NAME);
-    viewsSheets.putValueRange(VIEWS_SHEET_NAME, output)
+    viewsSheets.putValueRange(VIEWS_SHEET_NAME, [header].concat(considerdResult))
     
     slack.sendInfo('Camera Crawl Notification :successed:',
-      `Output Google App Script Finished.\nmanual: ${manualAppraisals.length}, system: ${systemAppraisals.length}, output: ${output.length}`
+      `Output Google App Script Finished.\nmanual: ${manualAppraisals.length}, system: ${systemAppraisals.length}, output: ${considerdResult.length}`
     )
-    output.shift()
-    new saveJsonS3Service().execute(output)
+    new saveJsonS3Service().execute(considerdResult)
   } catch (e) {
     slack.sendError('Camera Crawl Notification :failed:', 'Output Google App Script Finished.', e)
   }
