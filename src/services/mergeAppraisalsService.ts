@@ -16,12 +16,16 @@ export class mergeAppraisalsService {
    */
   public execute(): Appraisal[] {
     const appraisals = this.overWriteAppraisal(this.systemAppraisals, this.manualAppraisals)
-    const currentApprisals = this.addDiffAppraisal(appraisals, this.manualAppraisals).map(appraisal => {
+    const currentAppraisals = this.addDiffAppraisal(appraisals, this.manualAppraisals).map(appraisal => {
       appraisal.updatedAt = dayjs().format('YYYY-MM-DD')
       return appraisal;
     });
 
-    return this.overWriteAppraisal(this.latestAppraisals, currentApprisals)
+    if (this.latestAppraisals.length <= 0) {
+      return currentAppraisals;
+    }
+
+    return this.overWriteAppraisal(this.latestAppraisals, currentAppraisals)
   }
 
   /**

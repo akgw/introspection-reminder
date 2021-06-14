@@ -4,7 +4,7 @@ import { loadJsonS3Service } from "./loadJsonS3Service";
 
 // 前回実行結果を取得
 // gasのs3ライブラリだとlist取得できないためマッチするまで複数回リクエスト
-export class loadLatestApprisalsService {
+export class loadLatestAppraisalsService {
   public execute = (): Appraisal[] => {
     let ret: Appraisal[] = [];
     for(let day = 0; day < 10; day++) {

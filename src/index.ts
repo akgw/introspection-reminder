@@ -6,7 +6,7 @@ import { sheetDataToAppraisalsService } from "./services/sheetDataToAppraisalsSe
 import { considerAppraisalService } from "./services/considerAppraisalService";
 import { sendMessageSlackService } from "./services/sendMessageSlackService";
 import { saveJsonS3Service } from "./services/saveJsonS3Service";
-import { loadLatestApprisalsService } from "./services/loadLatestApprisalsService";
+import { loadLatestAppraisalsService } from "./services/loadLatestAppraisalsService";
 
 declare var global: any;
 global.main = () => {
@@ -20,7 +20,7 @@ global.main = () => {
     ).execute();
    
     const systemAppraisals = new loadJsonS3Service().execute('mapcamera_scraping_result.json')
-    const latestAppraisals = new loadLatestApprisalsService().execute()
+    const latestAppraisals = new loadLatestAppraisalsService().execute()
     const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals, latestAppraisals).execute();
   
     const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
