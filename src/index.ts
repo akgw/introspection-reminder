@@ -40,7 +40,7 @@ global.main = () => {
     viewsSheets.putValueRange(VIEWS_SHEET_NAME, [header].concat(considerdResult))
     
     slack.sendInfo('Camera Crawl Notification :successed:',
-      `Output Google App Script Finished.\nmanual: ${manualAppraisals.length}, system: ${systemAppraisals.length}, output: ${considerdResult.length}`
+      `Output Google App Script Finished.\nmanual: ${manualAppraisals.length}, system: ${systemAppraisals.length}, latest: ${latestAppraisals.length}, output: ${considerdResult.length}`
     )
     new saveJsonS3Service().execute(considerdResult)
   } catch (e) {

@@ -15,8 +15,10 @@ export class mergeAppraisalsService {
    * システムシートの査定額一覧を基準に、手動シートでJANコード同一のものは項目をブランク以外上書きする
    */
   public execute(): Appraisal[] {
-    const appraisals = this.overWriteAppraisal(this.systemAppraisals, this.manualAppraisals)
-    const currentAppraisals = this.addDiffAppraisal(appraisals, this.manualAppraisals).map(appraisal => {
+    const currentAppraisals = this.addDiffAppraisal(
+      this.overWriteAppraisal(this.systemAppraisals, this.manualAppraisals),
+      this.manualAppraisals
+    ).map(appraisal => {
       appraisal.updatedAt = dayjs().format('YYYY-MM-DD')
       return appraisal;
     });
@@ -25,7 +27,7 @@ export class mergeAppraisalsService {
       return currentAppraisals;
     }
 
-    return this.overWriteAppraisal(this.latestAppraisals, currentAppraisals)
+    return this.addDiffAppraisal(this.overWriteAppraisal(this.latestAppraisals, currentAppraisals), currentAppraisals);
   }
 
   /**
