@@ -23,14 +23,17 @@ export class considerAppraisalService {
       })
     })
 
-    return this.appraisals.map(Appraisal => {
-      if (!Appraisal.appraisal) {
-        return Appraisal
+    return this.appraisals.map(appraisal => {
+      // 画像データはs.jpgからl.jpgへ変更する
+      appraisal.url = appraisal.url.replace('s.jpg', 'l.jpg')
+
+      if (!appraisal.appraisal) {
+        return appraisal
       }
 
-      const reference = references.find(reference => reference.category == Appraisal.category) || references.find(reference => reference.category == 'default') as Reference
-      Appraisal.maxAppraisal = `${Number(Appraisal.appraisal) * Number(reference.rate)}`
-      return Appraisal
+      const reference = references.find(reference => reference.category == appraisal.category) || references.find(reference => reference.category == 'default') as Reference
+      appraisal.maxAppraisal = `${Number(appraisal.appraisal) * Number(reference.rate)}`
+      return appraisal
     })
   }
 }
