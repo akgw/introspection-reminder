@@ -3,6 +3,7 @@ export interface Appraisal {
   name: string; // 商品名
   images: string[]; // 画像
   manufacturer: string; // メーカー
+  largeCategory: string; // 大カテゴリ
   category: string; // カテゴリ
   appraisal: string; // 査定額
   maxAppraisal: string; // buysellでのMAX査定額

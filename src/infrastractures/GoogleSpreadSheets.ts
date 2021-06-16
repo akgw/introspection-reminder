@@ -26,8 +26,8 @@ export class GoogleSpreadSheets {
   }
 
   private toArray = (objectArray: Object[]) => {
-    return objectArray.map(object => {
-      return typeof(object) === 'object' ? Object.values(object) : object
+    return objectArray.map((object: any) => {
+      return typeof(object) === 'object' ? Object.values(object): object
     })
   }
 }

@@ -11,13 +11,14 @@ export class sheetDataToAppraisalsService {
   public execute(): Appraisal[] {
     const appraisals:Appraisal[] = []
     this.sheetData.map(row => {
-      const [jan, name, images, manufacturer, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, updatedAt, isOneprice, url] = row;
+      const [jan, name, images, manufacturer, largeCategory, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, updatedAt, isOneprice, url] = row;
 
       const Appraisal: Appraisal = {
         jan,
         name,
         images,
         manufacturer,
+        largeCategory,
         category,
         appraisal,
         maxAppraisal,
