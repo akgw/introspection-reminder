@@ -1,4 +1,4 @@
-import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, MANUAL_SHEET_MASTER_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME, SLACK_WEBHOOK_URL, SLACK_CHANNEL, MANUAL_SHEET_CATEGORY_MASTER_NAME } from "./infrastractures/environments";
+import { MANUAL_SHEET_ID, MANUAL_SHEET_NAME, MANUAL_SHEET_RATE_MASTER_NAME, MANUAL_SHEET_MASTER_NAME, VIEWS_SHEET_ID, VIEWS_SHEET_NAME, SLACK_WEBHOOK_URL, SLACK_CHANNEL, MANUAL_SHEET_CATEGORY_MASTER_NAME } from "./infrastractures/environments";
 import { loadJsonS3Service } from "./services/loadJsonS3Service";
 import { GoogleSpreadSheets } from "./infrastractures/googleSpreadSheets";
 import { mergeAppraisalsService } from "./services/mergeAppraisalsService";
@@ -28,8 +28,9 @@ global.main = () => {
 
     // 係数など計算処理
     const considerdResult = new considerAppraisalService(
-      new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
+      new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_RATE_MASTER_NAME),
       new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_CATEGORY_MASTER_NAME),
+      new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_MASTER_NAME),
       mergedResult
     ).execute().filter(row => {
       return Object.keys(row).length == Object.keys(header).length

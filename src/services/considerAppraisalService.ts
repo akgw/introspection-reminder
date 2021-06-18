@@ -13,11 +13,13 @@ interface CategoryMaster {
 export class considerAppraisalService {
   private rateMaster: any[];
   private categoryMaster: any[];
+  private master: {};
   private appraisals: Appraisal[];
 
-  constructor(rateMaster: string[], categoryMaster: string[], appraisals: Appraisal[]) {
+  constructor(rateMaster: string[], categoryMaster: string[], master: any[], appraisals: Appraisal[]) {
     this.rateMaster = this.masterToArray<RateMaster>(rateMaster, ['category', 'rate']);
     this.categoryMaster = this.masterToArray<CategoryMaster>(categoryMaster, ['largeCategory', 'category']);
+    this.master = Object.fromEntries(new Map(master));
     this.appraisals = appraisals;
   }
 
@@ -35,10 +37,18 @@ export class considerAppraisalService {
         return appraisal
       }
 
-      const rate = this.findOrDefault<RateMaster>(this.rateMaster, appraisal, 'category').rate;
-      appraisal.maxAppraisal = `${Number(appraisal.appraisal) * Number(rate)}`
+      appraisal.maxAppraisal = this.calculationMaxAppraisal(appraisal)
       return appraisal
     })
+  }
+
+  private calculationMaxAppraisal(appraisal: Appraisal): string {
+    if (!appraisal.isOneprice && 'notOnepriceRate' in this.master) {
+      return `${Number(appraisal.appraisal) * Number(this.master['notOnepriceRate'])}`
+    }
+
+    const rate = this.findOrDefault<RateMaster>(this.rateMaster, appraisal, 'category').rate;
+    return `${Number(appraisal.appraisal) * Number(rate)}`
   }
 
   /**

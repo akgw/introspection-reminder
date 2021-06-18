@@ -1,6 +1,7 @@
 export const MANUAL_SHEET_ID = PropertiesService.getScriptProperties().getProperty("MANUAL_SHEET_ID") as string;
 export const MANUAL_SHEET_NAME = PropertiesService.getScriptProperties().getProperty("MANUAL_SHEET_NAME") as string;
 export const MANUAL_SHEET_MASTER_NAME = PropertiesService.getScriptProperties().getProperty("MANUAL_SHEET_MASTER_NAME") as string;
+export const MANUAL_SHEET_RATE_MASTER_NAME = PropertiesService.getScriptProperties().getProperty("MANUAL_SHEET_RATE_MASTER_NAME") as string;
 export const MANUAL_SHEET_CATEGORY_MASTER_NAME = PropertiesService.getScriptProperties().getProperty("MANUAL_SHEET_CATEGORY_MASTER_NAME") as string;
 
 export const VIEWS_SHEET_ID = PropertiesService.getScriptProperties().getProperty("VIEWS_SHEET_ID") as string;
