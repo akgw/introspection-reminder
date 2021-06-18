@@ -41,9 +41,9 @@ global.main = () => {
     const output = considerdResult.map(object => {
       return {
         jan: object.jan,
-        name: object.name,
-        images: object.images,
         manufacturer: object.manufacturer,
+        images: object.images,
+        name: object.name,
         largeCategory: object.largeCategory,
         category: object.category,
         appraisal: object.appraisal,

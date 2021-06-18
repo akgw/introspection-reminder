@@ -26,6 +26,9 @@ export class considerAppraisalService {
       // 画像データはs.jpgからl.jpgへ変更する
       appraisal.url = appraisal.url.replace('s.jpg', 'l.jpg')
 
+      // 商品名からメーカー名を消す
+      appraisal.name = appraisal.name.replace(appraisal.manufacturer, '')
+
       // 大カテゴリをマスタに合わせて更新する
       appraisal.largeCategory = this.findOrDefault<CategoryMaster>(this.categoryMaster, appraisal, 'category').largeCategory;
       if (!appraisal.appraisal) {
