@@ -31,7 +31,9 @@ export class considerAppraisalService {
       }
 
       // 商品名からメーカー名を消す
-      appraisal.name = appraisal.name.replace(appraisal.manufacturer, '')
+      if (appraisal.name) {
+        appraisal.name = appraisal.name.replace(appraisal.manufacturer, '')
+      }
 
       // 大カテゴリをマスタに合わせて更新する
       appraisal.largeCategory = this.findOrDefault<CategoryMaster>(this.categoryMaster, appraisal, 'category').largeCategory;
