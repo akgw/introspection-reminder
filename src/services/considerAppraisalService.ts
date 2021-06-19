@@ -26,7 +26,9 @@ export class considerAppraisalService {
   public execute(): Appraisal[] {
     return this.appraisals.map(appraisal => {
       // 画像データはs.jpgからl.jpgへ変更する
-      appraisal.url = appraisal.url.replace('s.jpg', 'l.jpg')
+      if (appraisal.url) {
+        appraisal.url = appraisal.url.replace('s.jpg', 'l.jpg')        
+      }
 
       // 商品名からメーカー名を消す
       appraisal.name = appraisal.name.replace(appraisal.manufacturer, '')
