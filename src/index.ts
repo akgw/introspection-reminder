@@ -17,7 +17,7 @@ global.main = () => {
     const manualAppraisals = new sheetDataToAppraisalsService(
       new GoogleSpreadSheets(MANUAL_SHEET_ID).fetchValueRange(MANUAL_SHEET_NAME),
       true
-    ).execute();
+    ).execute()
    
     const systemAppraisals = new loadJsonS3Service().execute('mapcamera_scraping_result.json')
     const latestAppraisals = new loadLatestAppraisalsService().execute()

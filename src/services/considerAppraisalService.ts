@@ -13,7 +13,7 @@ interface CategoryMaster {
 export class considerAppraisalService {
   private rateMaster: any[];
   private categoryMaster: any[];
-  private master: {};
+  private master: any;
   private appraisals: Appraisal[];
 
   constructor(rateMaster: string[], categoryMaster: string[], master: any[], appraisals: Appraisal[]) {
