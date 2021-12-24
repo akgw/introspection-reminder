@@ -15,4 +15,5 @@ export interface Appraisal {
   isOneprice: boolean; //ワンプライスかどうか
   isManual: boolean; // マニュアルデータかどうか
   url: string;
+  sort?: number;
 }

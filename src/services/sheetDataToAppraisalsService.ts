@@ -11,7 +11,7 @@ export class sheetDataToAppraisalsService {
   public execute(): Appraisal[] {
     const appraisals:Appraisal[] = []
     this.sheetData.map(row => {
-      const [jan, name, images, manufacturer, largeCategory, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, updatedAt, isOneprice, url] = row;
+      const [jan, name, images, manufacturer, largeCategory, category, appraisal, maxAppraisal, newAppraisal, condition3Appraisal, condition5Appraisal, condition6Appraisal, updatedAt, isOneprice, url, sort] = row;
 
       const Appraisal: Appraisal = {
         jan,
@@ -29,7 +29,8 @@ export class sheetDataToAppraisalsService {
         updatedAt,
         isOneprice,
         isManual: true,
-        url
+        url,
+        sort: sort || 999
       }
       appraisals.push(Appraisal)
     })

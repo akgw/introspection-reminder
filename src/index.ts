@@ -21,7 +21,9 @@ global.main = () => {
    
     const systemAppraisals = new loadJsonS3Service().execute('mapcamera_scraping_result.json')
     const latestAppraisals = new loadLatestAppraisalsService().execute()
-    const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals, latestAppraisals).execute();
+    const mergedResult = new mergeAppraisalsService(systemAppraisals, manualAppraisals, latestAppraisals).execute().map(appraisal => {
+      return !appraisal.sort ? Object.assign(appraisal, {sort: 999}) : appraisal;
+    });
   
     const viewsSheets = new GoogleSpreadSheets(VIEWS_SHEET_ID)
     const header: any = viewsSheets.fetchHeader(VIEWS_SHEET_NAME);
@@ -37,6 +39,10 @@ global.main = () => {
     }).sort((a, b) => {
       return a.jan > b.jan ? 1 : -1 
     })
+
+    if (considerdResult.length <= 0) {
+      throw new Error("considerdResult length <= 0")
+    }
 
     // objectをそのままarray変換し、スプレッドシートへ貼り付けるため、並び順をここで確定
     const output = considerdResult.map(object => {
@@ -57,6 +63,7 @@ global.main = () => {
         isOneprice: object.isOneprice,
         isManual: object.isManual,
         url: object.url,
+        sort: object.sort,
       }
     })
 
