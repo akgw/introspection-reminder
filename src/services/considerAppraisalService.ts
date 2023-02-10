@@ -27,12 +27,12 @@ export class considerAppraisalService {
     return this.appraisals.map(appraisal => {
       // 画像データはs.jpgからl.jpgへ変更する
       if (appraisal.url) {
-        appraisal.url = appraisal.url.replace('s.jpg', 'l.jpg')        
+        appraisal.url = String(appraisal.url).replace('s.jpg', 'l.jpg')        
       }
 
       // 商品名からメーカー名を消す
       if (appraisal.name) {
-        appraisal.name = appraisal.name.replace(appraisal.manufacturer, '')
+        appraisal.name = String(appraisal.name).replace(appraisal.manufacturer, '')
       }
 
       // 大カテゴリをマスタに合わせて更新する
