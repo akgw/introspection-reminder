@@ -14,21 +14,22 @@ export class sendMessageSlackService {
         channel: this.channel,
         username:"1d1m",
         icon_emoji: ":man:",
+        text: `<${authorLink}|1Day_1Meigen>`,
+        unfurl_links: true,
         "attachments": [
           {
             "mrkdwn_in": ["text"],
               "color": "good",
               "author_name": authorName,
               "author_link": authorLink,
-              "title": "1day-1meigen",
-              "title_link": "https://docs.google.com/spreadsheets/d/1MHQWo7-VqZGZqZ4qSEa02-bGZycbOGoohMuUvQvbo4E/edit#gid=0",
               "fields": [
                   {
                       "title": title,
-                      "value": text,
+                      "value": "```" + text + "```",
                       "short": false
                   }
               ],
+              "footer": "設定ファイル： https://docs.google.com/spreadsheets/d/1MHQWo7-VqZGZqZ4qSEa02-bGZycbOGoohMuUvQvbo4E",
           }
       ]
       })
