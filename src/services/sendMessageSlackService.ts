@@ -6,58 +6,31 @@ export class sendMessageSlackService {
     this.channel = channel;
   }
 
-  public sendInfo = (title: string, text: string) => {
+  public sendInfo = (authorName: string, authorLink: string, title: string, text: string) => {
     const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
       method: 'post',
       contentType: "application/json",
       payload: JSON.stringify({
         channel: this.channel,
-        username:"Output Ojisan",
-        icon_emoji: ":panda_face:",
-        attachments: [
+        username:"1d1m",
+        icon_emoji: ":man:",
+        "attachments": [
           {
-            title: title,
-            text: text,
-            color: "good",    
+            "mrkdwn_in": ["text"],
+              "color": "good",
+              "author_name": authorName,
+              "author_link": authorLink,
+              "title": "1day-1meigen",
+              "title_link": "https://docs.google.com/spreadsheets/d/1MHQWo7-VqZGZqZ4qSEa02-bGZycbOGoohMuUvQvbo4E/edit#gid=0",
+              "fields": [
+                  {
+                      "title": title,
+                      "value": text,
+                      "short": false
+                  }
+              ],
           }
-        ],
-      })
-    }
-
-    UrlFetchApp.fetch(this.webhook_url, options)
-  }
-
-  public sendError = (title: string, text: string, error: Error) => {
-    const options: GoogleAppsScript.URL_Fetch.URLFetchRequestOptions = {
-      method: 'post',
-      contentType: "application/json",
-      payload: JSON.stringify({
-        channel: this.channel,
-        username:"Output Ojisan",
-        icon_emoji: ":panda_face:",
-        attachments: [
-          {
-            title: title,
-            text: text,
-            color: "danger",
-            fields: [
-              {
-                title: "error name",
-                value: error.name,
-                short: true
-              },
-              {
-                title: "error message",
-                  value: error.message,
-                  short: true
-              },
-              {
-                title: "stack trace",
-                value: error.stack as string,
-              }
-            ]
-          }
-        ]
+      ]
       })
     }
 
