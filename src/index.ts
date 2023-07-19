@@ -3,6 +3,11 @@ import { SHEET_ID, SHEET_NAME, SLACK_WEBHOOK_URL, SLACK_CHANNEL } from "./infras
 import { GoogleSpreadSheets } from "./infrastractures/googleSpreadSheets";
 import { sendMessageSlackService } from "./services/sendMessageSlackService";
 import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
+
+dayjs.extend(utc);
+dayjs.extend(timezone); 
 
 declare var global: any;
 global.main = () => {
@@ -30,7 +35,7 @@ global.main = () => {
 
     sheet.putValue(SHEET_NAME, contents.findIndex(row => {
       return row === content
-    }) + 2, Object.keys(content).length, dayjs().format('YYYY/MM/DD')
+    }) + 2, Object.keys(content).length, dayjs().tz('Asia/Tokyo').format('YYYY/MM/DD')
     )
 
     console.log('finished')
